@@ -1,8 +1,22 @@
 allow init block_device:lnk_file { setattr };
 allow init wcnss_device:chr_file rw_file_perms;
-allow init debugfs:dir rw_dir_perms;
-allow init debugfs:dir mounton;
+allow init debugfs:dir { rw_dir_perms mounton };
 allow init debugfs:file rw_file_perms;
+allow init app_data_file:dir { remove_name rmdir write };
+allow init app_data_file:file unlink;
+allow init app_data_file:lnk_file unlink;
+allow init ashmem_device:chr_file execute;
+allow init block_device:blk_file write;
+allow init boot_block_device:blk_file write;
+allow init cache_file:file append;
+allow init graphics_device:chr_file { ioctl write };
+allow init init_tmpfs:file { append };
+allow init input_device:chr_file ioctl;
+allow init properties_device:file rename;
+allow init property_socket:sock_file write;
+allow init self:process execmem;
+allow init shell_data_file:dir rmdir;
+allow init system_file:dir { add_name remove_name };
 
 domain_auto_trans(init, mot_boot_mode_exec, mot_boot_mode);
 domain_auto_trans(init, mount_pds_exec, vold);
